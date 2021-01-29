@@ -15,8 +15,9 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        int firstProperty = 1;
+        int lastProperty = 25;
 
-//        System.out.println(("").matches("^[\\p{ASCII}“”’•–]*$"));
         String cardClass = "._1gJzwc_bJS._2rwkILN6KA.Rmplp6XJNu.mT74Grr7MA.nCFolhPlNA.lqg5eVwdBz.uxIDPd3H13._30RANjWDIv";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
@@ -29,9 +30,7 @@ public class Main {
         WebDriverWait wait = new WebDriverWait(driver, 30);
 
         driver.navigate().to("https://www.carousell.ph/search/bedspace");
-        int page = 10;
-        int startCard = 0;
-        int card = 20;
+        int page = 100;
         int noOfCards;
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(cardClass), 0));
         List<WebElement> cards = driver.findElements(By.cssSelector(cardClass));
@@ -51,7 +50,7 @@ public class Main {
         Map<String, Object[]> data = new TreeMap<>();
         data.put(Integer.toString(1), new Object[] {"Unit Name", "Price", "Description", "Street Address",
         "Bedroom/s", "Bathroom/s", "Region", "City", "Barangay", "Floor Area", "Lot Area", "Parking Space", "Pet Friendly", "Link", "Images", "Special Character?"});
-        for (int i = startCard; i < card; i++) {
+        for (int i = firstProperty-1; i < lastProperty-1; i++) {
             cards = driver.findElements(By.cssSelector(cardClass));
             cards.get(i).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(unitNameXPath)));

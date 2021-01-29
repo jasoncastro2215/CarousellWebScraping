@@ -15,6 +15,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+
+//        System.out.println(("").matches("^[\\p{ASCII}“”’•–]*$"));
         String cardClass = "._1gJzwc_bJS._2rwkILN6KA.Rmplp6XJNu.mT74Grr7MA.nCFolhPlNA.lqg5eVwdBz.uxIDPd3H13._30RANjWDIv";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
@@ -29,7 +31,7 @@ public class Main {
         driver.navigate().to("https://www.carousell.ph/search/bedspace");
         int page = 10;
         int startCard = 0;
-        int card = 40;
+        int card = 20;
         int noOfCards;
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(cardClass), 0));
         List<WebElement> cards = driver.findElements(By.cssSelector(cardClass));
@@ -106,8 +108,8 @@ public class Main {
             if (!city.isEmpty())
                 data.put(Integer.toString(i+2), new Object[] {unitName, finalPrice, description, streetAddress, bedroom, bathroom, region, city, brngy, floorArea, lotArea, parkingSpace,
                     petFriendly, driver.getCurrentUrl(), imgs.substring(0, imgs.length()-2),
-                        unitName.matches("^[\u0000-\u007F]*$") ? (description.matches("^[\u0000-\u007F]*$") ? "" : "description") :
-                                (description.matches("^[\u0000-\u007F]*$") ? "unit name" : "unit name & description") });
+                        unitName.matches("^[\\p{ASCII}“”’•–]*$") ? (description.matches("^[\\p{ASCII}“”’•–]*$") ? "" : "description") :
+                                (description.matches("^[\\p{ASCII}“”’•–]*$") ? "unit name" : "unit name & description") });
             driver.navigate().back();
         }
         driver.close();

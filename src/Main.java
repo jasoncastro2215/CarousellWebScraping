@@ -15,16 +15,17 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int firstProperty = 1;
-        int lastProperty = 25;
+        int firstProperty = 0;
+        int lastProperty = 20;
 
-        String cardClass = "._1gJzwc_bJS._2rwkILN6KA.Rmplp6XJNu.mT74Grr7MA.nCFolhPlNA.lqg5eVwdBz.uxIDPd3H13._30RANjWDIv";
+        String cardClass = ".D_cr.D_c_.D_cC.D_cG.D_cI.D_cL.D_cO.D_co";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
-        String descriptionXPath = "._1gJzwc_bJS._2NNa9Zomqk.Rmplp6XJNu._2rtT6NUaXc._2m1WFlGyTw.lqg5eVwdBz._19l6iUes6V.OEczB0h3_O._3k5LISAlf6";
-        String detailsCategoryClass = ".VSdV5689oq > p";
-        String detailsCSS = "p + div > span";
-        String imageCSS = "span._3nH6adLACP.AkA9bU1pCx img.P2llUzsDMi";
+        String descriptionXPath = ".D_cr.D_cA.D_cC.D_cF.D_cJ.D_cL.D_cN.D_uQ.D_uR.D_cn";
+        String detailsCategoryClass = ".D_uL > p";
+        String detailsCSS = ".D_cr.D_c_.D_cC.D_cF.D_cJ.D_cL.D_cN.D_uQ.D_cn";
+        String imageCSS = ".D_eJ.D_wP.D_eK > img";
+        String loadMoreButtonCSS = ".D_aO.D_bj.D_bb.D_aW.D_bn.D_av";
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -38,7 +39,7 @@ public class Main {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         for (int i = 0; i < page; i++) {
             js.executeScript("javascript:window.scrollBy(0, 10000)");
-            List<WebElement> loadMoreButton = driver.findElements(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div[2]/main/div/button"));
+            List<WebElement> loadMoreButton = driver.findElements(By.cssSelector(loadMoreButtonCSS));
             if (loadMoreButton.size() == 0)
                 break;
             loadMoreButton.get(0).click();
@@ -46,11 +47,10 @@ public class Main {
             noOfCards = driver.findElements(By.cssSelector(cardClass)).size();
         }
 
-//        cards = driver.findElements(By.cssSelector(cardClass));
         Map<String, Object[]> data = new TreeMap<>();
         data.put(Integer.toString(1), new Object[] {"Unit Name", "Price", "Description", "Street Address",
         "Bedroom/s", "Bathroom/s", "Region", "City", "Barangay", "Floor Area", "Lot Area", "Parking Space", "Pet Friendly", "Link", "Images", "Special Character?"});
-        for (int i = firstProperty-1; i < lastProperty-1; i++) {
+        for (int i = firstProperty-1; i < lastProperty; i++) {
             cards = driver.findElements(By.cssSelector(cardClass));
             cards.get(i).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(unitNameXPath)));
@@ -73,42 +73,43 @@ public class Main {
             for (int j = 0; j < detailsCategory.size(); j++) {
                 switch (detailsCategory.get(j).getText()) {
                     case "Street Address":
-                        streetAddress = details.get(j).getText();
+                        streetAddress = details.get(j+1).getText();
                         break;
                     case "Bedrooms":
-                        bedroom = details.get(j).getText().replaceAll("\\D+","");
+                        bedroom = details.get(j+1).getText().replaceAll("\\D+","");
                         break;
                     case "Bathrooms":
-                        bathroom = details.get(j).getText().replaceAll("\\D+","");
+                        bathroom = details.get(j+1).getText().replaceAll("\\D+","");
                         break;
                     case "Region":
-                        region = details.get(j).getText();
+                        region = details.get(j+1).getText();
                         break;
                     case "City":
-                        city = details.get(j).getText();
+                        city = details.get(j+1).getText();
                         break;
                     case "Barangay":
-                        brngy = details.get(j).getText();
+                        brngy = details.get(j+1).getText();
                         break;
                     case "Floor Area":
-                        floorArea = details.get(j).getText().replaceAll(" sqm", "").replaceAll(",", "");
+                        floorArea = details.get(j+1).getText().replaceAll(" sqm", "").replaceAll(",", "");
                         break;
                     case "Lot Area":
-                        lotArea = details.get(j).getText().replaceAll(" sqm", "").replaceAll(",", "");
+                        lotArea = details.get(j+1).getText().replaceAll(" sqm", "").replaceAll(",", "");
                         break;
                     case "Parking Space":
-                        parkingSpace = details.get(j).getText();
+                        parkingSpace = details.get(j+1).getText();
                         break;
                     case "Pet Friendly":
-                        petFriendly = details.get(j).getText();
+                        petFriendly = details.get(j+1).getText();
                         break;
                 }
             }
+            System.out.println("fetching unit " + (i+1));
             if (!city.isEmpty())
                 data.put(Integer.toString(i+2), new Object[] {unitName, finalPrice, description, streetAddress, bedroom, bathroom, region, city, brngy, floorArea, lotArea, parkingSpace,
                     petFriendly, driver.getCurrentUrl(), imgs.substring(0, imgs.length()-2),
-                        unitName.matches("^[\\p{ASCII}“”’•–]*$") ? (description.matches("^[\\p{ASCII}“”’•–]*$") ? "" : "description") :
-                                (description.matches("^[\\p{ASCII}“”’•–]*$") ? "unit name" : "unit name & description") });
+                        unitName.matches("^[\\p{ASCII}]*$") ? (description.matches("^[\\p{ASCII}]*$") ? "" : "description") :
+                                (description.matches("^[\\p{ASCII}]*$") ? "unit name" : "unit name & description") });
             driver.navigate().back();
         }
         driver.close();

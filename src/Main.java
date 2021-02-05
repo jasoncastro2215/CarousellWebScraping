@@ -15,33 +15,32 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int firstProperty = 0;
-        int lastProperty = 20;
+        int firstProperty = 281;
+        int lastProperty = 300;
 
-        String cardClass = ".D_cr.D_c_.D_cC.D_cG.D_cI.D_cL.D_cO.D_co";
+        String cardClass = ".D_cL.D_cU.D_cX.D_ea.D_ec.D_eg.D_ej.D_cI";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
-        String descriptionXPath = ".D_cr.D_cA.D_cC.D_cF.D_cJ.D_cL.D_cN.D_uQ.D_uR.D_cn";
-        String detailsCategoryClass = ".D_uL > p";
-        String detailsCSS = ".D_cr.D_c_.D_cC.D_cF.D_cJ.D_cL.D_cN.D_uQ.D_cn";
-        String imageCSS = ".D_eJ.D_wP.D_eK > img";
+        String descriptionXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/section/div[1]/div[2]/div/div/div/p/p";
+        String detailsCategoryClass = ".D_Cq > p";
+        String detailsCSS = ".D_cL.D_cU.D_cX.D_cZ.D_ee.D_eg.D_ei.D_Cv.D_cH";
+        String imageCSS = ".D_bz.D_AP.D_b_ > img";
         String loadMoreButtonCSS = ".D_aO.D_bj.D_bb.D_aW.D_bn.D_av";
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);
 
         driver.navigate().to("https://www.carousell.ph/search/bedspace");
-        int page = 100;
+        int page = 13;
         int noOfCards;
         wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(cardClass), 0));
         List<WebElement> cards = driver.findElements(By.cssSelector(cardClass));
-        noOfCards = cards.size();
         JavascriptExecutor js = (JavascriptExecutor) driver;
+        noOfCards = cards.size();
         for (int i = 0; i < page; i++) {
+            System.out.println("Page: " + i);
             js.executeScript("javascript:window.scrollBy(0, 10000)");
-            List<WebElement> loadMoreButton = driver.findElements(By.cssSelector(loadMoreButtonCSS));
-            if (loadMoreButton.size() == 0)
-                break;
+            List<WebElement> loadMoreButton = driver.findElements(By.xpath("//*[@id=\"root\"]/div/div[3]/div/div[2]/main/div/button"));
             loadMoreButton.get(0).click();
             wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.cssSelector(cardClass), noOfCards));
             noOfCards = driver.findElements(By.cssSelector(cardClass)).size();
@@ -60,7 +59,7 @@ public class Main {
             String unitName = driver.findElement(By.xpath(unitNameXPath)).getText();
             String price = driver.findElement(By.xpath(priceXPath)).getText();
             int finalPrice = Integer.parseInt(price.substring(4).replaceAll(",", ""));
-            List<WebElement> descElement = driver.findElements(By.cssSelector(descriptionXPath));
+            List<WebElement> descElement = driver.findElements(By.xpath(descriptionXPath));
             String description = descElement.size() == 0 ? "" : descElement.get(0).getText();
             List<WebElement> details = driver.findElements(By.cssSelector(detailsCSS));
             List<WebElement> detailsCategory = driver.findElements(By.cssSelector(detailsCategoryClass));

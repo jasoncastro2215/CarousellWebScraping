@@ -15,17 +15,16 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int firstProperty = 281;
-        int lastProperty = 300;
+        int firstProperty = 266;
+        int lastProperty = 290;
 
-        String cardClass = ".D_cL.D_cU.D_cX.D_ea.D_ec.D_eg.D_ej.D_cI";
+        String cardClass = ".D_ex.D_eG.D_eJ.D_eM.D_eO.D_eR.D_eU.D_eX";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
         String descriptionXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/section/div[1]/div[2]/div/div/div/p/p";
-        String detailsCategoryClass = ".D_Cq > p";
-        String detailsCSS = ".D_cL.D_cU.D_cX.D_cZ.D_ee.D_eg.D_ei.D_Cv.D_cH";
-        String imageCSS = ".D_bz.D_AP.D_b_ > img";
-        String loadMoreButtonCSS = ".D_aO.D_bj.D_bb.D_aW.D_bn.D_av";
+        String detailsCategoryClass = ".D_Cc > p";
+        String detailsCSS = ".D_ex.D_eG.D_eJ.D_eL.D_eP.D_eR.D_eT.D_Ci.D_eW";
+        String imageCSS = ".D_fn.D_BN.D_BO.D_fo > img";
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);

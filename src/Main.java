@@ -18,13 +18,13 @@ public class Main {
         int firstProperty = 266;
         int lastProperty = 290;
 
-        String cardClass = ".D_ex.D_eG.D_eJ.D_eM.D_eO.D_eR.D_eU.D_eX";
+        String cardClass = ".D_eS.D_fb.D_ff.D_fi.D_fk.D_fn.D_fq.D_eL";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
         String descriptionXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/section/div[1]/div[2]/div/div/div/p/p";
-        String detailsCategoryClass = ".D_Cc > p";
-        String detailsCSS = ".D_ex.D_eG.D_eJ.D_eL.D_eP.D_eR.D_eT.D_Ci.D_eW";
-        String imageCSS = ".D_fn.D_BN.D_BO.D_fo > img";
+        String detailsCategoryClass = ".D_qE > p";
+        String detailsCSS = ".D_eS.D_fb.D_ff.D_fh.D_fl.D_fn.D_fp.D_qK.D_eK";
+        String imageCSS = ".D_cP.D_HJ.D_HK.D_cQ > img";
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);

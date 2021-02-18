@@ -15,16 +15,16 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int firstProperty = 266;
-        int lastProperty = 290;
+        int firstProperty = 283;
+        int lastProperty = 300;
 
-        String cardClass = ".D_eS.D_fb.D_ff.D_fi.D_fk.D_fn.D_fq.D_eL";
+        String cardClass = ".D_bP.D_bY.D_cb.D_cf.D_ch.D_ck.D_cn.D_bM";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
         String descriptionXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/section/div[1]/div[2]/div/div/div/p/p";
-        String detailsCategoryClass = ".D_qE > p";
-        String detailsCSS = ".D_eS.D_fb.D_ff.D_fh.D_fl.D_fn.D_fp.D_qK.D_eK";
-        String imageCSS = ".D_cP.D_HJ.D_HK.D_cQ > img";
+        String detailsCategoryClass = ".D_vY > p";
+        String detailsCSS = ".D_bP.D_bY.D_cb.D_ce.D_ci.D_ck.D_cm.D_wf.D_bL";
+        String imageCSS = ".D_bB.D_xf.D_bC > img";
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);

@@ -15,16 +15,16 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
-        int firstProperty = 283;
+        int firstProperty = 282;
         int lastProperty = 300;
-
-        String cardClass = ".D_bP.D_bY.D_cb.D_cf.D_ch.D_ck.D_cn.D_bM";
+        String cardClass = ".D_gg.D_gp.D_gs.D_gv.D_gx.D_g_.D_gC.D_gc";
         String priceXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[2]/h2";
         String unitNameXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/div[4]/h1";
         String descriptionXPath = "//*[@id=\"root\"]/div/div[3]/div[1]/div/div[2]/section/div[1]/div[2]/div/div/div/p/p";
-        String detailsCategoryClass = ".D_vY > p";
-        String detailsCSS = ".D_bP.D_bY.D_cb.D_ce.D_ci.D_ck.D_cm.D_wf.D_bL";
-        String imageCSS = ".D_bB.D_xf.D_bC > img";
+        String detailsCategoryClass = ".D_pn > p";
+        String detailsCSS = ".D_gg.D_gp.D_gs.D_gv.D_gy.D_g_.D_gB.D_gb";
+        String imageCSS = ".D_eK.D_op.D_eL > img";
+
 
         WebDriver driver = new FirefoxDriver();
         WebDriverWait wait = new WebDriverWait(driver, 30);
